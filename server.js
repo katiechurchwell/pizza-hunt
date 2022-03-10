@@ -1,6 +1,6 @@
 //dependencies
-const mongoose = require("mongoose");
-const express = require("express");
+const mongoose = require('mongoose');
+const express = require('express');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -11,12 +11,12 @@ app.use(express.json());
 //parses incoming requests with urlencoded
 app.use(express.urlencoded({ extended: true }));
 //serves static files
-app.use(express.static("public"));
+app.use(express.static('public'));
 //point to routes for middleware functions
-app.use(require("./routes"));
+app.use(require('./routes'));
 
 mongoose.connect(
-  process.env.MONGODB_URI || "mongodb://localhost:27017/pizza-hunt",
+  process.env.MONGODB_URI || 'mongodb://localhost:27017/pizza-hunt',
   {
     useNewUrlParser: true,
     useUnifiedTopology: true,
@@ -24,6 +24,6 @@ mongoose.connect(
 );
 
 // Log mongo queries being executed
-mongoose.set("debug", true);
+mongoose.set('debug', true);
 
 app.listen(PORT, () => console.log(`🌍 Connected on localhost:${PORT}`));

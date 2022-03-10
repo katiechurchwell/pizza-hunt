@@ -1,4 +1,4 @@
-const { Pizza } = require("../models");
+const { Pizza } = require('../models');
 
 const pizzaController = {
   // get all pizzas
@@ -6,12 +6,12 @@ const pizzaController = {
   getAllPizza(req, res) {
     Pizza.find({})
       .populate({
-        path: "comments",
+        path: 'comments',
         //don't include __v field for comments...
-        select: "-__v",
+        select: '-__v',
       })
       //...or pizza
-      .select("-__v")
+      .select('-__v')
       //organize by newest pizzas first
       .sort({ _id: -1 })
       .then((dbPizzaData) => res.json(dbPizzaData))
@@ -22,17 +22,16 @@ const pizzaController = {
   },
 
   // get one pizza by id
-  // get one pizza by id
   getPizzaById({ params }, res) {
     Pizza.findOne({ _id: params.id })
       .populate({
-        path: "comments",
-        select: "-__v",
+        path: 'comments',
+        select: '-__v',
       })
-      .select("-__v")
+      .select('-__v')
       .then((dbPizzaData) => {
         if (!dbPizzaData) {
-          res.status(404).json({ message: "No pizza found with this id!" });
+          res.status(404).json({ message: 'No pizza found with this id!' });
           return;
         }
         res.json(dbPizzaData);
@@ -43,23 +42,23 @@ const pizzaController = {
       });
   },
 
-  // create a pizza
-  createPizza({ body }, res) {
-    Pizza.create(body)
-      .then((dbPizzaData) => res.json(dbPizzaData))
-      .catch((err) => res.status(400).json(err));
-  },
-
   // update pizza by id
   updatePizza({ params, body }, res) {
     Pizza.findOneAndUpdate({ _id: params.id }, body, { new: true })
       .then((dbPizzaData) => {
         if (!dbPizzaData) {
-          res.status(404).json({ message: "No pizza found with this id!" });
+          res.status(404).json({ message: 'No pizza found with this id!' });
           return;
         }
         res.json(dbPizzaData);
       })
+      .catch((err) => res.status(400).json(err));
+  },
+
+  // create a pizza
+  createPizza({ body }, res) {
+    Pizza.create(body)
+      .then((dbPizzaData) => res.json(dbPizzaData))
       .catch((err) => res.status(400).json(err));
   },
 
@@ -68,7 +67,7 @@ const pizzaController = {
     Pizza.findOneAndDelete({ _id: params.id })
       .then((dbPizzaData) => {
         if (!dbPizzaData) {
-          res.status(404).json({ message: "No pizza found with this id!" });
+          res.status(404).json({ message: 'No pizza found with this id!' });
           return;
         }
         res.json(dbPizzaData);

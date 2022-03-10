@@ -1,5 +1,5 @@
-const dateFormat = require("../utils/dateFormat");
-const { Schema, model, Types } = require("mongoose");
+const dateFormat = require('../utils/dateFormat');
+const { Schema, model, Types } = require('mongoose');
 
 const CommentSchema = new Schema(
   {
@@ -52,11 +52,11 @@ const ReplySchema = new Schema(
   }
 );
 
-CommentSchema.virtual('replyCount').get(function() {
+CommentSchema.virtual('replyCount').get(function () {
   return this.replies.length;
 });
 
-const Comment = model("Comment", CommentSchema);
-const Reply = model("Reply", ReplySchema);
+const Comment = model('Comment', CommentSchema);
+const Reply = model('Reply', ReplySchema);
 
 (module.exports = Comment), Reply;
