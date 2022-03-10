@@ -7,15 +7,18 @@ const commentController = {
       .then(({ _id }) => {
         return Pizza.findOneAndUpdate(
           { _id: params.pizzaId },
+          //update operator, includes duplicates
           { $push: { comments: _id } },
           { new: true }
         );
       })
       .then((dbPizzaData) => {
+        //if no data
         if (!dbPizzaData) {
           res.status(404).json({ message: 'No pizza found with this id!' });
           return;
         }
+        //response
         res.json(dbPizzaData);
       })
       .catch((err) => res.json(err));
