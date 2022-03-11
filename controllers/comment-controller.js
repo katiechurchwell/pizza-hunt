@@ -9,7 +9,7 @@ const commentController = {
           { _id: params.pizzaId },
           //update operator, includes duplicates
           { $push: { comments: _id } },
-          { new: true }
+          { new: true, runValidators: true }
         );
       })
       .then((dbPizzaData) => {
